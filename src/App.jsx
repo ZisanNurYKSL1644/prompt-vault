@@ -48,7 +48,7 @@ export default function App() {
     setPrompts([newPrompt, ...prompts]);
     setTitle('');
     setContent('');
-    showToast('Prompt başarıyla eklendi! 🚀');
+    showToast('Prompt başarıyla eklendi!');
   };
 
   // Prompt silme
@@ -86,7 +86,7 @@ export default function App() {
         {/* Başlık Alanı */}
         <header className="text-center space-y-2 py-6 bg-white rounded-2xl shadow-sm border border-slate-100">
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 flex items-center justify-center gap-2">
-            PromptVault 🚀
+            PromptVault
           </h1>
           <p className="text-slate-500 text-sm sm:text-base">Yapay Zeka Komut Yönetim Asistanı</p>
         </header>
