@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 export default function App() {
-  // LocalStorage'dan mevcut promptları çek veya boş dizi başlat
   const [prompts, setPrompts] = useState(() => {
     const saved = localStorage.getItem('promptVault');
     return saved ? JSON.parse(saved) : [
@@ -16,16 +15,12 @@ export default function App() {
   const [content, setContent] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Tümü');
-  
-  // Bildirim (Toast) mesajı için state
   const [toastMessage, setToastMessage] = useState(null);
 
-  // State her değiştiğinde LocalStorage'a kaydet
   useEffect(() => {
     localStorage.setItem('promptVault', JSON.stringify(prompts));
   }, [prompts]);
 
-  // Bildirim gösterme fonksiyonu
   const showToast = (msg) => {
     setToastMessage(msg);
     setTimeout(() => {
@@ -33,7 +28,6 @@ export default function App() {
     }, 2500);
   };
 
-  // Yeni prompt ekleme
   const handleAdd = (e) => {
     e.preventDefault();
     if (!title.trim() || !content.trim()) return;
@@ -51,19 +45,16 @@ export default function App() {
     showToast('Prompt başarıyla eklendi!');
   };
 
-  // Prompt silme
   const handleDelete = (id) => {
     setPrompts(prompts.filter(p => p.id !== id));
     showToast('Prompt silindi.');
   };
 
-  // Panoya Kopyalama Fonksiyonu
   const handleCopy = (text) => {
     navigator.clipboard.writeText(text);
     showToast('Panoya kopyalandı! 📋');
   };
 
-  // Arama ve filtreleme mantığı
   const filteredPrompts = prompts.filter(p => {
     const matchesSearch = p.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           p.content.toLowerCase().includes(searchTerm.toLowerCase());
@@ -74,7 +65,6 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans p-4 sm:p-6 relative">
       
-      {/* Şık Toast Bildirim Balonu */}
       {toastMessage && (
         <div className="fixed top-5 right-5 z-50 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-2 border border-slate-700 animate-bounce">
           <span>{toastMessage}</span>
@@ -83,15 +73,13 @@ export default function App() {
 
       <div className="max-w-4xl mx-auto space-y-8">
         
-        {/* Başlık Alanı */}
         <header className="text-center space-y-2 py-6 bg-white rounded-2xl shadow-sm border border-slate-100">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 flex items-center justify-center gap-2">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900">
             PromptVault
           </h1>
           <p className="text-slate-500 text-sm sm:text-base">Yapay Zeka Komut Yönetim Asistanı</p>
         </header>
 
-        {/* Yeni Prompt Ekleme Formu */}
         <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
           <h2 className="text-lg font-bold text-slate-800 border-b pb-2">Yeni Prompt Ekle</h2>
           <form onSubmit={handleAdd} className="space-y-4">
@@ -130,7 +118,6 @@ export default function App() {
           </form>
         </section>
 
-        {/* Arama ve Filtreleme Çubuğu */}
         <section className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
           <input
             type="text"
@@ -156,7 +143,6 @@ export default function App() {
           </div>
         </section>
 
-        {/* Prompt Listesi Kartları */}
         <section className="space-y-4">
           <h2 className="text-xl font-bold text-slate-800">Kayıtlı Promptlar ({filteredPrompts.length})</h2>
           
